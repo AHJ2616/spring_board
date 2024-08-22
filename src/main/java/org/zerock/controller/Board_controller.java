@@ -29,6 +29,10 @@ public class Board_controller {
 		//list라는 변수에 List<BoardVO> 가 넘어 온다.
 	}//method end
 	
+	// form을 작성 안했을때 접속 할 수 있게한다.
+	@GetMapping("/register")
+	public void register() {}
+	
 	// http:localhost:80/board/register (@PostMapping) 에서 실행 후 http:localhost:80/board/list로 이동
 	@PostMapping("/register")
 	public String register(BoardVO board, RedirectAttributes rttr) {
@@ -45,7 +49,7 @@ public class Board_controller {
 		return "redirect:/board/list"; //등록 후 이동시킬 url
 	}
 	// http:localhost:80/board/get (@GetMapping) 에서 실행된다.
-	@GetMapping("/get") 
+	@GetMapping(value= {"/get","/modify"}) 
 	public void get(@RequestParam("bno") long bno, Model model) {
 		log.info("Board_controller.get() 실행");
 		model.addAttribute("board", service.get(bno));
@@ -65,7 +69,7 @@ public class Board_controller {
 	
 	
 	// http:localhost:80/board/remove (@PostMapping) 에서 실행 후 http:localhost:80/board/list로 이동
-	@PostMapping("/remove")
+	@GetMapping("/remove")
 	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
 		log.info("Board_controller.remove() 실행");
 		if(service.remove(bno)==true) {//service.modify retrun값이 boolean 이다.
