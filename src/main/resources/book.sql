@@ -13,6 +13,24 @@ alter table tbl_board add constraint pk_board primary key (bno);
 
 select * from tbl_board;
 
+select sysdate from dual
 
 insert into tbl_board (bno, title, content, writer) 
 values (seq_board.nextval, '테스트 제목', '테스트 내용', 'user00');
+
+create table review(
+rno Number(10,0) constraint rno_pk primary key,
+bno number(10,0),
+reply varchar2(2000) not null,
+replyer varchar2(50) not null,
+replyDate date default sysdate,
+update_date date default sysdate
+)
+
+create sequence rno_seq
+start with 1
+increment by 1
+nocycle
+nocache;
+
+

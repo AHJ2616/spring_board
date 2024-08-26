@@ -9,7 +9,15 @@
 
 <select id="getList" resultType="org.zerock.domain.BoardVO"> <!-- id:메서드명, resultType:객체 -->
 	<![CDATA[
-		select * from tbl_board where bno > 0
+		select bno,title,content,writer,regdate,updateDate
+		from( select rownum rn, bno, title, content, writer, regdate, updateDate from tbl_board where rownum <= #{page_num} * #{amount})
+		where rn > (#{page_num} -1) * #{amount}
+	]]> <!-- CDATA 사용 이유는 부등호인지 문자인지를 판단하지 말것 (문자처리) -->
+</select>
+
+<select id="getList2" resultType="org.zerock.domain.BoardVO"> <!-- id:메서드명, resultType:객체 -->
+	<![CDATA[
+		select * from tbl_board where bno>0
 	]]> <!-- CDATA 사용 이유는 부등호인지 문자인지를 판단하지 말것 (문자처리) -->
 </select>
 
@@ -51,5 +59,11 @@
 		delete from tbl_board where bno = #{ bno }
 	]]> <!-- 번호를 조건으로 레코드를 삭제한다. -->
 </delete>
+
+<select id="getTotal_count" resultType="int">
+	<![CDATA[
+		select count(*) from tbl_board where bno>0
+	]]>
+</select>
 
 </mapper>

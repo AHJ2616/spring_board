@@ -56,6 +56,31 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				<div class="pull-right">
+					<ul class="pagination">
+						<c:if test="${ page_maker.prev }">
+							<li class="paginate_button previous">
+								<a href="${page_maker.start_page - 1}">Previous</a>
+							</li>
+						</c:if>
+						<c:forEach var="num" begin="${page_maker.start_page}" end="${ page_maker.end_page }">
+							<li class="paginate_button">
+								<a href="${num}">${num}</a>
+							</li>
+						</c:forEach>
+						<c:if test="${ page_maker.next }">
+							<li class="paginate_button next">
+								<a href="${pageMaker.endPage +1 }">Next</a>
+							</li>
+						</c:if>
+					</ul>
+				</div>
+				<!-- /.pull-right -->
+				
+				<form id="actionForm" action="/board/list" method="get">
+					<input type="hidden" name="page_num" value='${page_maker.page.page_num}' />
+					<input type="hidden" name="amount" value='${page_maker.page.amount}' />
+				</form>
 				
 				<!-- Modal : alert대신에 사용하는 Modal 경고창 -->
 				<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -100,10 +125,6 @@
 		/* controller에서 flashAttribute를 통해 1회용으로 넘어오는 result=bno */
 		var result = "<c:out value="${result}"/>";
 		
-		/*  */
-		
-		
-		
 		/* check_modal function 실행 */
 		check_modal(result);
 		
@@ -122,7 +143,19 @@
 			self.location = "/board/register";
 
 		});
-	});
+		var actionForm = $("#actionForm");
+		$(".paginate_button a").on(
+				"click",
+				function(e) {
+
+					e.preventDefault();
+
+					console.log('click');
+
+					actionForm.find("input[name='pageNum']")
+							.val($(this).attr("href"));
+					actionForm.submit();
+				});
 </script>
 
 <%@ include file="../includes/footer.jsp"%>

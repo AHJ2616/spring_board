@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.PageDTO2;
 import org.zerock.mapper.BoardMapper;
 
 import lombok.AllArgsConstructor;
@@ -48,10 +49,22 @@ public class BoardService_impl implements BoardService {
 	}
 
 	@Override
-	public List<BoardVO> getlist() {
+	public List<BoardVO> getlist(PageDTO2 page) {
 		// TODO 게시글 전체를 List로 select
 		log.info("BoardService_impl.getlist() 실행");
-		return mapper.getList();
+		return mapper.getList(page);
+	}
+	
+	public List<BoardVO> getlist2() {
+		// TODO 게시글 전체를 List로 select
+		log.info("BoardService_impl.getlist() 실행");
+		return mapper.getList2();
+	}
+
+	@Override
+	public int get_total(PageDTO2 page) {
+		// TODO 게시글의 전체갯수 파악하기
+		return mapper.getTotal_count(page);
 	}
 
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.PageDTO2;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
@@ -21,7 +22,7 @@ public class BoardMapperTests { // 테스트용 코드
 	@Test // 메서드별로 테스트 JUnit
 	public void testGetList() {
 		
-		mapper.getList().forEach(board -> log.info(board));
+		mapper.getList(new PageDTO2(2,2)).forEach(board -> log.info(board));
 		
 	}	
 	

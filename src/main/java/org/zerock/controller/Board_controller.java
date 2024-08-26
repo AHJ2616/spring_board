@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.PageDTO;
+import org.zerock.domain.PageDTO2;
 import org.zerock.service.BoardService;
 
 import lombok.AllArgsConstructor;
@@ -22,12 +24,17 @@ public class Board_controller {
 	private BoardService service;
 	
 	// http:localhost:80/board/list (@GetMapping) 에서 실행된다
-	@GetMapping("/list")
-	public void list(Model model) {
+	
+	  @GetMapping("/list") 
+	  public void list(PageDTO2 page,Model model) { 
+		  model.addAttribute("list",service.getlist(page));//list라는 변수에 List<BoardVO> 가넘어 온다. 
+		  int total = service.get_total(page);
+	  model.addAttribute("page_maker",new PageDTO(page,total)); }//method end
 		
-		model.addAttribute("list",service.getlist());
-		//list라는 변수에 List<BoardVO> 가 넘어 온다.
-	}//method end
+	/*
+	 * @GetMapping("/list") public void list2(Model model) {
+	 * model.addAttribute("list",service.getlist2()); }
+	 */
 	
 	// form을 작성 안했을때 접속 할 수 있게한다.
 	@GetMapping("/register")

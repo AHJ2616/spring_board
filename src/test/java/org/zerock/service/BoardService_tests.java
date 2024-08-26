@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.PageDTO2;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
@@ -47,7 +48,7 @@ public class BoardService_tests {
 	
 	@Test
 	public void test_getlist() {
-		service.getlist().forEach(board -> log.info(board));
+		service.getlist(new PageDTO2(2,2)).forEach(board -> log.info(board));
 		
 	}
 	

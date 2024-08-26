@@ -4,14 +4,15 @@ import java.util.List;
 
 //import org.apache.ibatis.annotations.Select;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.PageDTO2;
 
 public interface BoardMapper {
 	// interface로 선언하는 이유는 추상메서드와 xml을 결합하여 구현 클래스를 사용하는 마이바티스
 	// xml을 생성할 때는 resources안에 폴더를 계층별로 만들고 파일명을 인터페이스와 같이 xml을 생성
 	
-	// 인터페이스에 자체적인 추상메서드를 활용
-	//@Select("select * from tbl_board where bno > 0") // where bno > 0 -> bno가 pk라 인덱싱이 되어 있어 빠름
-	public List<BoardVO> getList(); // 인터페이스안에는 추상메서드임.
+	public List<BoardVO> getList2();
+	
+	public List<BoardVO> getList(PageDTO2 page); // 인터페이스안에는 추상메서드임.
 	// 리턴은 List<BoardVO> 임으로 배열 안쪽에 객체가 BoardVO로 완성 됨
 	
 	
@@ -32,4 +33,6 @@ public interface BoardMapper {
 	
 	// 게시물의 번호를 받아 객체를 삭제한다.
 	public int delete(Long bno);
+	
+	public int getTotal_count(PageDTO2 page);
 }
